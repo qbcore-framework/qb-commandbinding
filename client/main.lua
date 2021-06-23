@@ -12,12 +12,9 @@ Keys = {
 QBCore = nil
 
 Citizen.CreateThread(function()
-    while true do
-        Citizen.Wait(10)
-        if QBCore == nil then
-            TriggerEvent('QBCore:GetObject', function(obj) QBCore = obj end)
-            Citizen.Wait(200)
-        end
+    while QBCore == nil do
+        TriggerEvent('QBCore:GetObject', function(obj) QBCore = obj end)
+        Citizen.Wait(200)
     end
 end)
 
@@ -28,13 +25,13 @@ local isLoggedIn = false
 
 local inKeyBinding = false
 local availableKeys = {
-    "F2",
-    "F3",
-    "F5",
-    "F6",
-    "F7",
-    "F9",
-    "F10",
+    {289, "F2"},
+    {170, "F3"},
+    {166, "F5"},
+    {167, "F6"},
+    {168, "F7"},
+    {56, "F9"},
+    {57, "F10"},
 }
 
 RegisterNetEvent("QBCore:Client:OnPlayerUnload")
@@ -76,16 +73,16 @@ Citizen.CreateThread(function()
 
         if isLoggedIn then
             for k, v in pairs(availableKeys) do
-                if IsControlJustPressed(0, Keys[v]) or IsDisabledControlJustPressed(0, Keys[v]) then
+                if IsControlJustPressed(0, v[1]) or IsDisabledControlJustPressed(0, v[1]) then
                     local keyMeta = QBCore.Functions.GetPlayerData().metadata["commandbinds"]
                     local args = {}
                     if next(keyMeta) ~= nil then
-                        if keyMeta[v]["command"] ~= "" then
-                            if keyMeta[v]["argument"] ~= "" then args = {[1] = keyMeta[v]["argument"]} else args = {[1] = nil} end
-                            TriggerServerEvent('QBCore:CallCommand', keyMeta[v]["command"], args)
+                        if keyMeta[v[2]]["command"] ~= "" then
+                            if keyMeta[v[2]]["argument"] ~= "" then args = {[1] = keyMeta[v[2]]["argument"]} else args = {[1] = nil} end
+                            TriggerServerEvent('QBCore:CallCommand', keyMeta[v[2]]["command"], args)
                             keyPressed = true
                         else
-                            QBCore.Functions.Notify('There is still nothing ['..v..'] bound, /binds to bind a command', 'primary', 4000)
+                            QBCore.Functions.Notify('There is still nothing ['..v[2]..'] bound, /binds to bind a command', 'primary', 4000)
                         end
                     else
                         QBCore.Functions.Notify('You have not bound any commands, /binds to bind a command', 'primary', 4000)
