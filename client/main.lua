@@ -102,7 +102,7 @@ RegisterNUICallback('save', function(data)
         ["F10"] = {["command"] = data.keyData["F10"][1], ["argument"] = data.keyData["F10"][2]},
     }
 
-    QBCore.Functions.Notify('Commandbindings saved!', 'success')
+    QBCore.Functions.Notify('Command bindings have been saved!', 'success')
 
     TriggerServerEvent('qb-commandbinding:server:setKeyMeta', keyData)
 end)
