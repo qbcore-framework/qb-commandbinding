@@ -4,16 +4,12 @@ game 'gta5'
 description 'QB-CommandBinding'
 version '1.0.0'
 
-ui_page "html/index.html"
+ui_page 'html/index.html'
 
-server_scripts {
-	"server/main.lua"
-}
-
-client_scripts {
-	"client/main.lua"
-}
+shared_script '@qb-core/import.lua'
+server_script 'server/main.lua'
+client_script 'client/main.lua'
 
 files {
-	"html/*"
+	'html/*'
 }
