@@ -45,13 +45,10 @@ RegisterNetEvent('qb-commandbinding:client:openUI')
 AddEventHandler('qb-commandbinding:client:openUI', function()
     openBindingMenu()
 end)
-
 Citizen.CreateThread(function()
-    while true do
-
         if isLoggedIn then
             for k, v in pairs(availableKeys) do
-                if IsControlJustPressed(0, v[1]) or IsDisabledControlJustPressed(0, v[1]) then
+               RegisterCommand(v[1], function()
                     local keyMeta = QBCore.Functions.GetPlayerData().metadata["commandbinds"]
                     local args = {}
                     if next(keyMeta) ~= nil then
@@ -65,20 +62,13 @@ Citizen.CreateThread(function()
                     else
                         QBCore.Functions.Notify('You have not bound any commands, /binds to bind a command', 'primary', 4000)
                     end
-                end
+                end, false)
+                RegisterKeyMapping(v[1], 'BIND '..k, 'keyboard', v[2])
             end
-
-            if keyPressed then
-                Citizen.Wait(1000)
-                keyPressed = false
-            end
-        else
-            Citizen.Wait(1000)
-        end
-
-        Citizen.Wait(3)
-    end
+       end
 end)
+
+
 
 RegisterNUICallback('save', function(data)
     local keyData = {
