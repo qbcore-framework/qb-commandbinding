@@ -51,7 +51,7 @@ Citizen.CreateThread(function()
 
         if isLoggedIn then
             for k, v in pairs(availableKeys) do
-                if IsControlJustPressed(0, v[1]) or IsDisabledControlJustPressed(0, v[1]) then
+                if (IsControlJustPressed(0, v[1]) or IsDisabledControlJustPressed(0, v[1])) and GetLastInputMethod(0) then
                     local keyMeta = QBCore.Functions.GetPlayerData().metadata["commandbinds"]
                     local args = {}
                     if next(keyMeta) ~= nil then
