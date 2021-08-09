@@ -45,30 +45,29 @@ RegisterNetEvent('qb-commandbinding:client:openUI')
 AddEventHandler('qb-commandbinding:client:openUI', function()
     openBindingMenu()
 end)
-Citizen.CreateThread(function()
-        if isLoggedIn then
-            for k, v in pairs(availableKeys) do
-               RegisterCommand(v[1], function()
-                    local keyMeta = QBCore.Functions.GetPlayerData().metadata["commandbinds"]
-                    local args = {}
-                    if next(keyMeta) ~= nil then
-                        if keyMeta[v[2]]["command"] ~= "" then
-                            if keyMeta[v[2]]["argument"] ~= "" then args = {[1] = keyMeta[v[2]]["argument"]} else args = {[1] = nil} end
-                            TriggerServerEvent('QBCore:CallCommand', keyMeta[v[2]]["command"], args)
-                            keyPressed = true
-                        else
-                            QBCore.Functions.Notify('There is still nothing ['..v[2]..'] bound, /binds to bind a command', 'primary', 4000)
-                        end
-                    else
-                        QBCore.Functions.Notify('You have not bound any commands, /binds to bind a command', 'primary', 4000)
-                    end
-                end, false)
-                RegisterKeyMapping(v[1], 'BIND '..k, 'keyboard', v[2])
+
+for k, v in pairs(availableKeys) do
+    RegisterCommand(v[1], function()
+        if isLoggedIn and not keyPressed then
+            local keyMeta = QBCore.Functions.GetPlayerData().metadata["commandbinds"]
+            local args = {}
+            if next(keyMeta) ~= nil then
+                if keyMeta[v[2]]["command"] ~= "" then
+                    if keyMeta[v[2]]["argument"] ~= "" then args = {[1] = keyMeta[v[2]]["argument"]} else args = {[1] = nil} end
+                    TriggerServerEvent('QBCore:CallCommand', keyMeta[v[2]]["command"], args)
+                    keyPressed = true
+                    Citizen.Wait(1000)
+                    keyPressed = false
+                else
+                    QBCore.Functions.Notify('There is still nothing ['..v[2]..'] bound, /binds to bind a command', 'primary', 4000)
+                end
+            else
+                QBCore.Functions.Notify('You have not bound any commands, /binds to bind a command', 'primary', 4000)
             end
-       end
-end)
-
-
+        end
+    end, false)
+    RegisterKeyMapping(v[1], 'BIND '..k, 'keyboard', v[2])
+end
 
 RegisterNUICallback('save', function(data)
     local keyData = {
@@ -84,4 +83,12 @@ RegisterNUICallback('save', function(data)
     QBCore.Functions.Notify('Command bindings have been saved!', 'success')
 
     TriggerServerEvent('qb-commandbinding:server:setKeyMeta', keyData)
+end)
+
+-- This will only trigger on server start, not client so it doesn't make the isLoggedIn useless, this just makes sure you don't have to log back in when restarting the resource manually
+AddEventHandler('onResourceStart', function(resource)
+    if resource == GetCurrentResourceName() then
+        Wait(200)
+        isLoggedIn = true
+    end
 end)
