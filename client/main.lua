@@ -48,7 +48,7 @@ end)
 
 for k, v in pairs(availableKeys) do
     RegisterCommand(v[1], function()
-        if isLoggedIn and not keyPressed then
+        if isLoggedIn and not keyPressed and GetLastInputMethod(0) then
             local keyMeta = QBCore.Functions.GetPlayerData().metadata["commandbinds"]
             local args = {}
             if next(keyMeta) ~= nil then
