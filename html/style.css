@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
+
 body {
     margin: 0;
     padding: 0;
@@ -34,7 +36,7 @@ body {
     color: white;
     font-weight: bold;
     font-size: 1vh;
-    font-family: sans-serif;
+    font-family: 'Poppins', sans-serif;
     letter-spacing: 0.1vh;
     text-transform: uppercase;
 }
@@ -67,7 +69,7 @@ input[type="text"] {
     padding-left: 1vh;
     font-weight: bold;
     font-size: 1vh;
-    font-family: sans-serif;
+    font-family: 'Poppins', sans-serif;
     letter-spacing: 0.1vh;
     text-transform: uppercase;
     color: rgb(255, 255, 255);
@@ -76,7 +78,7 @@ input[type="text"] {
 .command::-webkit-input-placeholder {
     font-weight: bold;
     font-size: 1vh;
-    font-family: sans-serif;
+    font-family: 'Poppins', sans-serif;
     letter-spacing: 0.1vh;
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.75);
@@ -103,7 +105,7 @@ input[type="text"] {
     padding-left: 1vh;
     font-weight: bold;
     font-size: 1vh;
-    font-family: sans-serif;
+    font-family: 'Poppins', sans-serif;
     letter-spacing: 0.1vh;
     text-transform: uppercase;
     color: rgb(255, 255, 255);
@@ -112,7 +114,7 @@ input[type="text"] {
 .argument::-webkit-input-placeholder {
     font-weight: bold;
     font-size: 1vh;
-    font-family: sans-serif;
+    font-family: 'Poppins', sans-serif;
     letter-spacing: 0.1vh;
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.75);
@@ -139,7 +141,7 @@ input[type="text"] {
     line-height: 5vh;
     font-weight: bold;
     font-size: 1.2vh;
-    font-family: sans-serif;
+    font-family: 'Poppins', sans-serif;
     letter-spacing: 0.1vh;
     text-transform: uppercase;
     background: #262b33b2;
@@ -161,7 +163,7 @@ input[type="text"] {
     color: white;
     font-weight: bold;
     font-size: 1.2vh;
-    font-family: sans-serif;
+    font-family: 'Poppins', sans-serif;
     letter-spacing: 0.1vh;
     text-transform: uppercase;
 }
