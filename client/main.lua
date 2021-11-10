@@ -1,6 +1,5 @@
+local QBCore = exports['qb-core']:GetCoreObject()
 local keyPressed = false
-local isLoggedIn = false
-
 local inKeyBinding = false
 local availableKeys = {
     {289, "F2"},
@@ -11,16 +10,6 @@ local availableKeys = {
     {56, "F9"},
     {57, "F10"},
 }
-
-RegisterNetEvent("QBCore:Client:OnPlayerUnload")
-AddEventHandler("QBCore:Client:OnPlayerUnload", function()
-    isLoggedIn = false
-end)
-
-RegisterNetEvent("QBCore:Client:OnPlayerLoaded")
-AddEventHandler("QBCore:Client:OnPlayerLoaded", function()
-    isLoggedIn = true
-end)
 
 function openBindingMenu()
     local PlayerData = QBCore.Functions.GetPlayerData()
@@ -48,7 +37,7 @@ end)
 
 for k, v in pairs(availableKeys) do
     RegisterCommand(v[1], function()
-        if isLoggedIn and not keyPressed and GetLastInputMethod(0) then
+        if LocalPlayer.state.isLoggedIn and not keyPressed and GetLastInputMethod(0) then
             local keyMeta = QBCore.Functions.GetPlayerData().metadata["commandbinds"]
             local args = {}
             if next(keyMeta) ~= nil then
@@ -83,12 +72,4 @@ RegisterNUICallback('save', function(data)
     QBCore.Functions.Notify('Command bindings have been saved!', 'success')
 
     TriggerServerEvent('qb-commandbinding:server:setKeyMeta', keyData)
-end)
-
--- This will only trigger on server start, not client so it doesn't make the isLoggedIn useless, this just makes sure you don't have to log back in when restarting the resource manually
-AddEventHandler('onResourceStart', function(resource)
-    if resource == GetCurrentResourceName() then
-        Wait(200)
-        isLoggedIn = true
-    end
 end)
