@@ -5,8 +5,7 @@ QBCore.Commands.Add("binds", "Open commandbinding menu", {}, false, function(sou
 	TriggerClientEvent("qb-commandbinding:client:openUI", source)
 end)
 
-RegisterServerEvent('qb-commandbinding:server:setKeyMeta')
-AddEventHandler('qb-commandbinding:server:setKeyMeta', function(keyMeta)
+RegisterNetEvent('qb-commandbinding:server:setKeyMeta', function(keyMeta)
     local src = source
     local ply = QBCore.Functions.GetPlayer(src)
 
