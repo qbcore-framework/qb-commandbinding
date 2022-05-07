@@ -1,7 +1,6 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 
-QBCore.Commands.Add("binds", "Open commandbinding menu", {}, false, function(source, args)
-    local Player = QBCore.Functions.GetPlayer(source)
+QBCore.Commands.Add("binds", "Open commandbinding menu", {}, false, function(source, _)
 	TriggerClientEvent("qb-commandbinding:client:openUI", source)
 end)
 
