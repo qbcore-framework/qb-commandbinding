@@ -1,6 +1,5 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 local keyPressed = false
-local inKeyBinding = false
 local availableKeys = {
     {289, "F2"},
     {170, "F3"},
@@ -18,13 +17,11 @@ function openBindingMenu()
         action = "openBinding",
         keyData = keyMeta
     })
-    inKeyBinding = true
     SetNuiFocus(true, true)
     SetCursorLocation(0.5, 0.5)
 end
 
 function closeBindingMenu()
-    inKeyBinding = false
     SetNuiFocus(false, false)
 end
 
@@ -38,7 +35,7 @@ for k, v in pairs(availableKeys) do
     RegisterCommand(v[1], function()
         if LocalPlayer.state.isLoggedIn and not keyPressed and GetLastInputMethod(0) then
             local keyMeta = QBCore.Functions.GetPlayerData().metadata["commandbinds"]
-            local args = {}
+            local args
             if next(keyMeta) ~= nil then
                 if keyMeta[v[2]]["command"] ~= "" then
                     if keyMeta[v[2]]["argument"] ~= "" then args = {[1] = keyMeta[v[2]]["argument"]} else args = {[1] = nil} end
