@@ -54,7 +54,7 @@ for k, v in pairs(availableKeys) do
     RegisterKeyMapping(v[1], 'BIND '..k, 'keyboard', v[2])
 end
 
-RegisterNUICallback('save', function(data)
+RegisterNUICallback('save', function(data, cb)
     local keyData = {
         ["F2"]  = {["command"] = data.keyData["F2"][1],  ["argument"] = data.keyData["F2"][2]},
         ["F3"]  = {["command"] = data.keyData["F3"][1],  ["argument"] = data.keyData["F3"][2]},
@@ -66,4 +66,5 @@ RegisterNUICallback('save', function(data)
     }
     QBCore.Functions.Notify('Command bindings have been saved!', 'success')
     TriggerServerEvent('qb-commandbinding:server:setKeyMeta', keyData)
+    cb('ok')
 end)
