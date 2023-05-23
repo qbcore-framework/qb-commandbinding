@@ -9,7 +9,6 @@ $(document).on('keydown', function() {
 });
 
 $(document).ready(function(){
-
     window.addEventListener('message', function(event){
         var eventData = event.data;
 
@@ -35,6 +34,8 @@ $(document).on('click', '.save-bindings', function(e){
     $.post('https://qb-commandbinding/save', JSON.stringify({
         keyData: keyData
     }));
+
+    qBinding.Close()
 });
 
 qBinding.Open = function(data) {
