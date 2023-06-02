@@ -46,8 +46,6 @@ for k, v in pairs(availableKeys) do
                 else
                     QBCore.Functions.Notify('There is still nothing ['..v[2]..'] bound, /binds to bind a command', 'primary', 4000)
                 end
-            else
-                QBCore.Functions.Notify('You have not bound any commands, /binds to bind a command', 'primary', 4000)
             end
         end
     end, false)
